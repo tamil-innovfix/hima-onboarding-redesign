@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HI ma — Male Onboarding Redesign</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #e91e8c 0%, #ff5c8a 50%, #ff8fab 100%);
+    padding: 48px 32px 40px;
+    text-align: center;
+    color: white;
+  }
+  .header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 20px;
+    padding: 5px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+  .header p {
+    font-size: 16px;
+    opacity: 0.88;
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .header .stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 28px;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 800; }
+  .stat-label { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+
+  /* ── Path breadcrumb ── */
+  .path-bar {
+    background: rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 10px 20px;
+    margin: 20px auto 0;
+    max-width: 680px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .path-step {
+    background: rgba(255,255,255,0.25);
+    border-radius: 8px;
+    padding: 3px 10px;
+  }
+  .path-sep { opacity: 0.7; }
+
+  /* ── Legend ── */
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 18px 24px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8ef;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-before { background: #94a3b8; }
+  .dot-after  { background: #e91e8c; }
+
+  /* ── Screen section ── */
+  .section {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 24px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-number {
+    width: 36px; height: 36px;
+    background: #e91e8c;
+    color: white;
+    border-radius: 50%;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 22px; font-weight: 700; color: #1a1a2e; }
+  .section-subtitle { font-size: 14px; color: #64748b; margin-top: 2px; }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 0;
+    align-items: start;
+  }
+
+  /* phone card */
+  .phone-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    transition: transform .2s;
+  }
+  .phone-card:hover { transform: translateY(-4px); }
+
+  .phone-label {
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .label-before { background: #f1f5f9; color: #64748b; }
+  .label-after  { background: #fdf2f8; color: #e91e8c; }
+
+  .phone-card img {
+    width: 100%;
+    display: block;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  /* arrow divider */
+  .arrow-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 60px;
+  }
+  .arrow-circle {
+    width: 44px; height: 44px;
+    background: #e91e8c;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(233,30,140,0.4);
+  }
+
+  /* changes list */
+  .changes-list {
+    margin-top: 20px;
+    padding: 20px 24px;
+    background: white;
+    border-radius: 16px;
+    border-left: 4px solid #e91e8c;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .changes-list h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #e91e8c;
+    margin-bottom: 12px;
+  }
+  .change-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.4;
+  }
+  .change-icon {
+    width: 20px; height: 20px;
+    background: #fdf2f8;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Divider */
+  .section-divider {
+    max-width: 1100px;
+    margin: 0 auto 0;
+    padding: 0 24px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: #94a3b8;
+    font-size: 13px;
+  }
+  .footer strong { color: #e91e8c; }
+</style>
+</head>
+<body>
+
+<!-- ────────────────────────── HEADER ────────────────────────── -->
+<div class="header">
+  <div class="badge">UI Redesign • 2026</div>
+  <h1>HI ma — Male Onboarding</h1>
+  <p>Before & after comparison of the complete male user signup flow, from login to the AI companion greeting screen.</p>
+  <div class="path-bar">
+    <span class="path-step">Login</span>
+    <span class="path-sep">→</span>
+    <span class="path-step">Gender</span>
+    <span class="path-sep">→</span>
+    <span class="path-step">Language</span>
+    <span class="path-sep">→</span>
+    <span class="path-step">Get Name</span>
+    <span class="path-sep">→</span>
+    <span class="path-step">AI Onboarding</span>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Screens</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Redesigned</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Unique to male path</div></div>
+  </div>
+</div>
+
+<!-- ────────────────────────── LEGEND ────────────────────────── -->
+<div class="legend">
+  <div class="legend-item"><div class="dot dot-before"></div>Before (Original)</div>
+  <div class="legend-item"><div class="dot dot-after"></div>After (Redesigned)</div>
+</div>
+
+
+<!-- ══════════════════ SCREEN 1: Login ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">1</div>
+    <div>
+      <div class="section-title">Login Screen</div>
+      <div class="section-subtitle">NewLoginActivity — First screen every user sees</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/01_login.png" alt="Login Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="m_after_01_login_sm.png" alt="Login After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">🎨</div>Full-screen pink gradient replaced with a clean white/grey layout — feels lighter and more modern</div>
+    <div class="change-item"><div class="change-icon">✨</div>Added floating feature icons (Chat, Video, Voice, Connect) with a prominent app icon card</div>
+    <div class="change-item"><div class="change-icon">📋</div>Phone input moved to a "Get Started" bottom card with cleaner label typography</div>
+    <div class="change-item"><div class="change-icon">🔤</div>App tagline updated from plain "Welcome to HI ma" → bold "Where Feelings Connect"</div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════ SCREEN 2: Gender (Male) ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">2</div>
+    <div>
+      <div class="section-title">Gender Selection</div>
+      <div class="section-subtitle">SelectGenderActivity — Male selected</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/02_gender_female.png" alt="Gender Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="m_after_02_gender_sm.png" alt="Gender After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">‹›</div>Back button style changed: white arrow on pink AppBar → grey rounded-square icon on clean white background</div>
+    <div class="change-item"><div class="change-icon">📊</div>Step-progress bars added at the top — step 1 of 4 active, so users understand where they are in the flow</div>
+    <div class="change-item"><div class="change-icon">🏷️</div>Title changed from "Set up your profile" → "Who are you?" — shorter, more conversational</div>
+    <div class="change-item"><div class="change-icon">👤</div>Role subtitles added: Male = "Connect with creators", Female = "Become a creator" — sets expectations early</div>
+    <div class="change-item"><div class="change-icon">🖼️</div>Avatar strip label updated with "Swipe to explore →" hint; avatar selection made more prominent</div>
+    <div class="change-item"><div class="change-icon">🎨</div>Gender cards use a gradient fill on selection (pink accent) instead of a plain pink border</div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════ SCREEN 3: Language ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">3</div>
+    <div>
+      <div class="section-title">Language Selection</div>
+      <div class="section-subtitle">SelectLanguageActivity — Preferred language for matching</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/04_language.png" alt="Language Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="m_after_03_language_sm.png" alt="Language After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">‹›</div>Back button style changed: white arrow on pink AppBar → grey rounded-square icon on clean white background</div>
+    <div class="change-item"><div class="change-icon">📊</div>Step bars now show step 2 of 4 active — users can see they're making progress</div>
+    <div class="change-item"><div class="change-icon">🎨</div>Pink Material AppBar header removed — clean white background replaces it, consistent with the rest of the flow</div>
+    <div class="change-item"><div class="change-icon">🌐</div>Subtitle added: "Pick the language you're most comfortable in 🌐"</div>
+    <div class="change-item"><div class="change-icon">🏷️</div>Language row icons redesigned: script characters now sit inside soft pink circle badges instead of plain circles</div>
+    <div class="change-item"><div class="change-icon">📝</div>Native script name (e.g. "தமிழ்") displayed as a secondary label below each language name for clarity</div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════ SCREEN 4: Get Name ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">4</div>
+    <div>
+      <div class="section-title">Display Name Entry</div>
+      <div class="section-subtitle">GetNameActivity — Male-only step; sets the user's display name ★ Unique to male path</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/04_get_name.png" alt="Get Name Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="m_after_04_getname_sm.png" alt="Get Name After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">‹›</div>Back button added — the original screen had no back button on the AppBar; redesign adds a consistent grey rounded-square icon</div>
+    <div class="change-item"><div class="change-icon">📊</div>Step bars show 3 of 4 active — user is nearly done with setup, reducing drop-off anxiety</div>
+    <div class="change-item"><div class="change-icon">🎨</div>Pink gradient Material AppBar ("One last thing / Tell us what to call you") replaced with a clean white header — title and subtitle are now inline on the white background</div>
+    <div class="change-item"><div class="change-icon">🏷️</div>"Your name" label retains its pink accent colour — consistent with the updated design language</div>
+    <div class="change-item"><div class="change-icon">📐</div>Name input card gets tighter vertical spacing and softer shadow, matching the new card style</div>
+    <div class="change-item"><div class="change-icon">🔘</div>Continue button remains disabled (grey) until a valid name is entered — real-time validation feedback unchanged</div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════ SCREEN 5: AI Onboarding ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">5</div>
+    <div>
+      <div class="section-title">AI Companion Greeting</div>
+      <div class="section-subtitle">AiOnboardingActivity — First interaction with the AI; select how you're feeling ★ Unique to male path</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/05_ai_onboarding.png" alt="AI Onboarding Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="m_after_05_aionboard_sm.png" alt="AI Onboarding After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">🏠</div>HI ma brand icon enlarged and given more visual prominence at the top — stronger brand moment at the start of the AI conversation</div>
+    <div class="change-item"><div class="change-icon">💬</div>Greeting line ("Hi friend! Inniki eppadi feel pannureenga?") kept in Tamil-English — the redesign preserves the regional warmth</div>
+    <div class="change-item"><div class="change-icon">🃏</div>Concern cards (Breakup 💔, Thanimai 😔, Stress 😰, Boring 😴) retain their colour coding; redesign improves card elevation and shadow depth</div>
+    <div class="change-item"><div class="change-icon">📐</div>Card grid uses better horizontal padding and consistent inter-card spacing for a cleaner two-column layout</div>
+    <div class="change-item"><div class="change-icon">🔠</div>Typography hierarchy tightened: greeting text size slightly reduced so all 4 cards fit comfortably without scrolling</div>
+  </div>
+</div>
+
+
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════ SCREEN 6: AI Chat ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">6</div>
+    <div>
+      <div class="section-title">AI Chat Screen</div>
+      <div class="section-subtitle">AiChatActivity — First AI conversation after mood selection ★ Unique to male path</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="ai_chat.png" alt="AI Chat Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="m_after_06_aichat_sm.png" alt="AI Chat After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">🤖</div>"AI" badge chip added next to "Hima" in the toolbar — makes it immediately clear the user is talking to an AI, not a real person</div>
+    <div class="change-item"><div class="change-icon">🎨</div>Avatar upgraded from a small plain chat-bubble circle to a large gradient ring (purple → pink) — more personality, stronger visual identity</div>
+    <div class="change-item"><div class="change-icon">📞</div>Phone and video call shortcut buttons added to the toolbar — surfaces key actions upfront</div>
+    <div class="change-item"><div class="change-icon">🌸</div>Chat background changed from plain grey/white to a soft pink wallpaper with floating hearts, stars and chat icons — warmer, more on-brand atmosphere</div>
+    <div class="change-item"><div class="change-icon">🌈</div>Pink–purple gradient divider line added under the toolbar — adds visual separation between header and chat area</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────── FOOTER ────────────────────────── -->
+<div class="footer">
+  <p>HI ma — Male Onboarding Redesign &nbsp;•&nbsp; <strong>6 screens</strong> redesigned &nbsp;•&nbsp; May 2026</p>
+  <p style="margin-top:6px; opacity:0.6;">Screenshots captured on device (Samsung, Android 14 · 1080×2392)</p>
+</div>
+
+</body>
+</html>

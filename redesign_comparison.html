@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HI ma — Female Onboarding Redesign</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #e91e8c 0%, #ff5c8a 50%, #ff8fab 100%);
+    padding: 48px 32px 40px;
+    text-align: center;
+    color: white;
+  }
+  .header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 20px;
+    padding: 5px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+  .header p {
+    font-size: 16px;
+    opacity: 0.88;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .header .stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 28px;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 800; }
+  .stat-label { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+
+  /* ── Legend ── */
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 18px 24px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8ef;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-before { background: #94a3b8; }
+  .dot-after  { background: #e91e8c; }
+
+  /* ── Screen section ── */
+  .section {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 24px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-number {
+    width: 36px; height: 36px;
+    background: #e91e8c;
+    color: white;
+    border-radius: 50%;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 22px; font-weight: 700; color: #1a1a2e; }
+  .section-subtitle { font-size: 14px; color: #64748b; margin-top: 2px; }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 0;
+    align-items: start;
+  }
+
+  /* phone card */
+  .phone-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    transition: transform .2s;
+  }
+  .phone-card:hover { transform: translateY(-4px); }
+
+  .phone-label {
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .label-before { background: #f1f5f9; color: #64748b; }
+  .label-after  { background: #fdf2f8; color: #e91e8c; }
+
+  .phone-card img {
+    width: 100%;
+    display: block;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  /* arrow divider */
+  .arrow-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 60px;
+  }
+  .arrow-circle {
+    width: 44px; height: 44px;
+    background: #e91e8c;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(233,30,140,0.4);
+  }
+
+  /* changes list */
+  .changes-list {
+    margin-top: 20px;
+    padding: 20px 24px;
+    background: white;
+    border-radius: 16px;
+    border-left: 4px solid #e91e8c;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .changes-list h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #e91e8c;
+    margin-bottom: 12px;
+  }
+  .change-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.4;
+  }
+  .change-icon {
+    width: 20px; height: 20px;
+    background: #fdf2f8;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Divider */
+  .section-divider {
+    max-width: 1100px;
+    margin: 0 auto 0;
+    padding: 0 24px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: #94a3b8;
+    font-size: 13px;
+  }
+  .footer strong { color: #e91e8c; }
+</style>
+</head>
+<body>
+
+<!-- ────────────────────────── HEADER ────────────────────────── -->
+<div class="header">
+  <div class="badge">UI Redesign • 2026</div>
+  <h1>HI ma — Female Onboarding</h1>
+  <p>Before & after comparison of the complete female creator signup flow, from login to profile review.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Screens</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">New in this session</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Redesigned</div></div>
+  </div>
+</div>
+
+<!-- ────────────────────────── LEGEND ────────────────────────── -->
+<div class="legend">
+  <div class="legend-item"><div class="dot dot-before"></div>Before (Original)</div>
+  <div class="legend-item"><div class="dot dot-after"></div>After (Redesigned)</div>
+</div>
+
+
+<!-- ══════════════════ SCREEN 1: Login ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">1</div>
+    <div>
+      <div class="section-title">Login Screen</div>
+      <div class="section-subtitle">NewLoginActivity — First screen every user sees</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/01_login.png" alt="Login Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="after/01_login.png" alt="Login After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">🎨</div>Full-screen pink gradient replaced with clean white/grey layout</div>
+    <div class="change-item"><div class="change-icon">✨</div>Added floating feature icons (Chat, Video, Voice, Connect) with a modern app icon card</div>
+    <div class="change-item"><div class="change-icon">📋</div>Phone input moved to a "Get Started" bottom card with cleaner typography</div>
+    <div class="change-item"><div class="change-icon">🔤</div>Tagline updated to "Where Feelings Connect"</div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════ SCREEN 2: Gender ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">2</div>
+    <div>
+      <div class="section-title">Gender Selection</div>
+      <div class="section-subtitle">SelectGenderActivity — Choose Male or Female</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/02_gender_female.png" alt="Gender Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="after/02_gender.png" alt="Gender After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">‹›</div>Back button style changed: white arrow on pink AppBar → grey rounded-square icon on clean white background</div>
+    <div class="change-item"><div class="change-icon">📊</div>Added step-progress bars at the top so users can see they're on step 1 of 4</div>
+    <div class="change-item"><div class="change-icon">🏷️</div>Title changed from "Set up your profile" → "Who are you?" — more conversational</div>
+    <div class="change-item"><div class="change-icon">👤</div>Added role descriptions: Male = "Connect with creators", Female = "Become a creator"</div>
+    <div class="change-item"><div class="change-icon">🖼️</div>Avatar section label updated with "Swipe to explore →" hint</div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════ SCREEN 3: Female About ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">3</div>
+    <div>
+      <div class="section-title">Female Profile Setup</div>
+      <div class="section-subtitle">FemaleAboutActivity — Age, interests and summary (female only)</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/03_female_about.png" alt="Female About Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="after/03_female_about.png" alt="Female About After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">‹›</div>Back button style changed: white arrow on pink AppBar → grey rounded-square icon on clean white background</div>
+    <div class="change-item"><div class="change-icon">📊</div>Step bars added — shows user is on step 2 of 4</div>
+    <div class="change-item"><div class="change-icon">🎯</div>Title changed from "Tell us about yourself" → "Create your profile" — more action-oriented</div>
+    <div class="change-item"><div class="change-icon">🏷️</div>Pink gradient section icons replace plain text headers for each field group</div>
+    <div class="change-item"><div class="change-icon">💅</div>Interest chips redesigned: rounded, light pink border, more modern spacing</div>
+    <div class="change-item"><div class="change-icon">🔤</div>Input field border now pink (active), matching the brand colour</div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════ SCREEN 4: Language ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">4</div>
+    <div>
+      <div class="section-title">Language Selection</div>
+      <div class="section-subtitle">SelectLanguageActivity — Preferred language for matching</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/04_language.png" alt="Language Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="after/04_language.png" alt="Language After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">‹›</div>Back button style changed: white arrow on pink AppBar → grey rounded-square icon on clean white background</div>
+    <div class="change-item"><div class="change-icon">📊</div>Step bars show step 3 of 4 — users know they're nearly done</div>
+    <div class="change-item"><div class="change-icon">🌐</div>Subtitle updated: "Pick the language you're most comfortable in 🌐"</div>
+    <div class="change-item"><div class="change-icon">🎨</div>Language rows: script icons now have soft pink circle backgrounds, cleaner card style</div>
+    <div class="change-item"><div class="change-icon">📝</div>Secondary script name (e.g. "தமிழ்") retained below main label for clarity</div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════ SCREEN 5: Voice ID ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">5</div>
+    <div>
+      <div class="section-title">Voice Identification</div>
+      <div class="section-subtitle">VoiceIdentificationActivity — Record voice for verification ★ Redesigned this session</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/05_voice_id.png" alt="Voice ID Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="after/05_voice_id.png" alt="Voice ID After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">📊</div>All 4 step bars now pink — user has completed onboarding, this is the final step</div>
+    <div class="change-item"><div class="change-icon">🎙️</div>Blue circle icon replaced with bold pink circle + white microphone — more visible, on-brand</div>
+    <div class="change-item"><div class="change-icon">🗂️</div>Title-only toolbar ("Voice Identification" text bar) replaced with 4 pink step bars — no back button in either version; the step bars serve as the navigation context</div>
+    <div class="change-item"><div class="change-icon">📐</div>Content is vertically centred with generous white space — premium feel</div>
+    <div class="change-item"><div class="change-icon">💡</div>Tip card (yellow) retained with "Find a quiet place" guidance</div>
+    <div class="change-item"><div class="change-icon">🔘</div>"Start Recording" button kept pink but now includes a microphone prefix icon for clarity</div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════ SCREEN 6: YouTube ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">6</div>
+    <div>
+      <div class="section-title">Training Video</div>
+      <div class="section-subtitle">YoutubeActivity — Watch the platform guide ★ Redesigned this session</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/06_youtube.png" alt="YouTube Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="after/06_youtube.png" alt="YouTube After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">🌓</div>Dark navy/slate background replaced with clean white — consistent with rest of onboarding</div>
+    <div class="change-item"><div class="change-icon">🏷️</div>"Getting Started" heading + "Watch this short guide 🎬" subtitle replaces anonymous logo header</div>
+    <div class="change-item"><div class="change-icon">🎬</div>Video player card has rounded 20dp corners, matching the design system</div>
+    <div class="change-item"><div class="change-icon">⏭️</div>Skip button moved to top-right as a rounded pill — easy to find, doesn't compete with video</div>
+    <div class="change-item"><div class="change-icon">🔁</div>Pink divider line added under header for visual rhythm</div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════ SCREEN 7: Almost Done ══════════════════ -->
+<div class="section">
+  <div class="section-label">
+    <div class="section-number">7</div>
+    <div>
+      <div class="section-title">Almost Done</div>
+      <div class="section-subtitle">AlmostDoneActivity — Profile under review ★ Redesigned this session</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid">
+    <div class="phone-card">
+      <div class="phone-label label-before">⬛ Before</div>
+      <img src="before/07_almost_done.png" alt="Almost Done Before">
+    </div>
+    <div class="arrow-col"><div class="arrow-circle">→</div></div>
+    <div class="phone-card">
+      <div class="phone-label label-after">✦ After</div>
+      <img src="after/07_almost_done.png" alt="Almost Done After">
+    </div>
+  </div>
+
+  <div class="changes-list">
+    <h4>✦ What Changed</h4>
+    <div class="change-item"><div class="change-icon">⏳</div>Lottie hourglass animation moved to hero section (top) — immediately conveys "waiting" state</div>
+    <div class="change-item"><div class="change-icon">🎨</div>Hero section uses a soft pink gradient background (bg_onboarding) — warm, reassuring feel</div>
+    <div class="change-item"><div class="change-icon">✅</div>Pink checkmark circle replaced with animated hourglass — more accurate to "review in progress"</div>
+    <div class="change-item"><div class="change-icon">🗂️</div>"What happens next?" card redesigned: 3 steps with emoji-badge icons (📞🛡️⏱️) instead of plain icons</div>
+    <div class="change-item"><div class="change-icon">💬</div>"For any queries please contact" support button added at the bottom</div>
+    <div class="change-item"><div class="change-icon">📝</div>"Processing your application..." status text now pink and prominent — clear status communication</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────── FOOTER ────────────────────────── -->
+<div class="footer">
+  <p>HI ma — Female Onboarding Redesign &nbsp;•&nbsp; <strong>7 screens</strong> redesigned &nbsp;•&nbsp; May 2026</p>
+  <p style="margin-top:6px; opacity:0.6;">Screenshots captured on device (Samsung, Android 14 · 1080×2392)</p>
+</div>
+
+</body>
+</html>
