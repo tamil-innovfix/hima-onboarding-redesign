@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HI ma — Onboarding Redesign</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f0f2f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .logo {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #e91e8c, #ff5c8a);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 32px;
+    box-shadow: 0 8px 24px rgba(233,30,140,0.35);
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a1a2e;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: #64748b;
+    line-height: 1.5;
+  }
+  .cards {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 700px;
+    width: 100%;
+  }
+  .card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 28px;
+    flex: 1;
+    min-width: 260px;
+    max-width: 320px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+    transition: transform .2s, box-shadow .2s;
+    border: 2px solid transparent;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(233,30,140,0.18);
+    border-color: #e91e8c;
+  }
+  .card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .card-icon.male   { background: #EFF6FF; }
+  .card-icon.female { background: #FDF2F8; }
+  .card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+  }
+  .card p {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .card .steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+  .step {
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #e91e8c, #ff5c8a);
+    transition: opacity .2s;
+  }
+  .btn:hover { opacity: 0.9; }
+  .footer {
+    margin-top: 48px;
+    font-size: 12px;
+    color: #94a3b8;
+    text-align: center;
+  }
+  .footer strong { color: #e91e8c; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">💬</div>
+  <h1>HI ma — UI Redesign</h1>
+  <p class="subtitle">Before & after comparison of the complete onboarding flow<br>for both male and female user paths · May 2026</p>
+</div>
+
+<div class="cards">
+
+  <a class="card" href="male_redesign_comparison.html">
+    <div class="card-icon male">👨</div>
+    <h2>Male Path</h2>
+    <p>Login → Gender → Language → Get Name → AI Onboarding → AI Chat</p>
+    <div class="steps">
+      <span class="step">Login</span>
+      <span class="step">Gender</span>
+      <span class="step">Language</span>
+      <span class="step">Get Name</span>
+      <span class="step">AI Chat</span>
+    </div>
+    <span class="btn">View Male Path →</span>
+  </a>
+
+  <a class="card" href="redesign_comparison.html">
+    <div class="card-icon female">👩</div>
+    <h2>Female Path</h2>
+    <p>Login → Gender → Profile Setup → Language → Voice ID → Training → Almost Done</p>
+    <div class="steps">
+      <span class="step">Login</span>
+      <span class="step">Gender</span>
+      <span class="step">Profile Setup</span>
+      <span class="step">Voice ID</span>
+      <span class="step">Almost Done</span>
+    </div>
+    <span class="btn">View Female Path →</span>
+  </a>
+
+</div>
+
+<div class="footer">
+  <p>HI ma &nbsp;•&nbsp; <strong>UI Redesign 2026</strong> &nbsp;•&nbsp; Screenshots captured on Samsung Android 14</p>
+</div>
+
+</body>
+</html>
