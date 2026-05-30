@@ -3,61 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HI ma &#8212; Chat Feature Comparison</title>
+<title>HI ma &#8212; Chat Redesign</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff url('chat_bg.png') repeat;background-size:540px auto;color:#1a1a2e}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a2e;
+  background:#fff url('chat_bg.png') repeat;background-size:360px auto}
 
-.header{background:linear-gradient(135deg,#e91e8c 0%,#ff5c8a 50%,#ff8fab 100%);padding:48px 32px 40px;text-align:center;color:#fff}
-.header .badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:5px 16px;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
-.header h1{font-size:32px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px}
-.header p{font-size:15px;opacity:.88;max-width:560px;margin:0 auto;line-height:1.5}
-.header .stats{display:flex;justify-content:center;gap:40px;margin-top:28px}
-.stat{text-align:center}
-.stat-num{font-size:28px;font-weight:800}
-.stat-label{font-size:12px;opacity:.8;margin-top:2px}
+/* ── header ── */
+.header{background:linear-gradient(135deg,#e91e8c 0%,#ff5c8a 50%,#ff8fab 100%);
+  padding:48px 32px 40px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;inset:0;
+  background:url('chat_bg.png') repeat;background-size:360px auto;opacity:.12;pointer-events:none}
+.header .badge{position:relative;display:inline-block;background:rgba(255,255,255,.22);
+  border:1px solid rgba(255,255,255,.45);border-radius:20px;padding:5px 18px;
+  font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:14px}
+.header h1{position:relative;font-size:30px;font-weight:800;letter-spacing:-.4px;margin-bottom:8px}
+.header p{position:relative;font-size:14px;opacity:.9;max-width:500px;margin:0 auto;line-height:1.5}
 
-.legend{display:flex;justify-content:center;gap:32px;padding:16px 24px;background:#fff;border-bottom:1px solid #e8e8ef;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.legend-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
-.dot{width:12px;height:12px;border-radius:50%}
-.dot-before{background:#94a3b8}
-.dot-after{background:#e91e8c}
-
-.back{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;margin:20px 24px 4px;font-size:13px;font-weight:600;color:#e91e8c;text-decoration:none;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+/* ── back ── */
+.back{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;
+  margin:20px 24px 0;font-size:13px;font-weight:600;color:#e91e8c;text-decoration:none;
+  background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .back:hover{background:#fdf2f8}
 
-.sec{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#e91e8c;padding:24px 24px 10px;display:flex;align-items:center;gap:10px;max-width:1100px;margin:0 auto}
+/* ── section label ── */
+.sec{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:#e91e8c;padding:28px 24px 12px;display:flex;align-items:center;gap:10px;
+  max-width:1100px;margin:0 auto}
 .sec::after{content:'';flex:1;height:1px;background:#e2e8f0}
 
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 24px;max-width:1100px;margin:0 auto}
-@media(max-width:700px){.cols{grid-template-columns:1fr}}
+/* ── two-column grid ── */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;
+  padding:0 24px 0;max-width:1100px;margin:0 auto}
+@media(max-width:680px){.cols{grid-template-columns:1fr}}
 
-.col-head{text-align:center;font-size:12px;font-weight:700;padding:8px 12px;border-radius:10px;margin-bottom:10px}
-.col-before{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}
-.col-after{background:#fdf2f8;color:#e91e8c;border:1px solid #fbb6ce}
+.col-label{text-align:center;font-size:11px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;padding:8px 14px;border-radius:10px;margin-bottom:12px}
+.col-current{background:rgba(255,255,255,.85);color:#64748b;border:1px solid #e2e8f0;backdrop-filter:blur(4px)}
+.col-redesign{background:rgba(233,30,140,.08);color:#e91e8c;border:1px solid #fbb6ce;backdrop-filter:blur(4px)}
 
-.card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.card-title{font-size:12px;font-weight:600;color:#1a1a2e;padding:10px 14px 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f1f5f9}
-.badge-new{font-size:9px;font-weight:700;background:#e91e8c;color:#fff;padding:2px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px}
-.badge-live{font-size:9px;font-weight:700;background:#94a3b8;color:#fff;padding:2px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px}
+/* ── phone frame card ── */
+.phone-card{background:#fff;border-radius:20px;overflow:hidden;
+  box-shadow:0 8px 32px rgba(0,0,0,.12);border:1px solid #e2e8f0}
+.phone-card .bar{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px 9px;border-bottom:1px solid #f1f5f9;background:#fff}
+.phone-card .bar-title{font-size:12px;font-weight:700;color:#1a1a2e}
+.badge-live{font-size:9px;font-weight:700;background:#94a3b8;color:#fff;
+  padding:2px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.4px}
+.badge-new{font-size:9px;font-weight:700;background:#e91e8c;color:#fff;
+  padding:2px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.4px}
+.phone-card img{width:100%;display:block}
 
-.phone-img img{width:100%;display:block}
+/* ── redesign placeholder ── */
+.redesign-slot{background:rgba(255,255,255,.7);border-radius:20px;
+  border:2.5px dashed #fbb6ce;min-height:520px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;text-align:center;padding:40px 28px;backdrop-filter:blur(6px)}
+.redesign-slot .big-icon{font-size:52px;line-height:1}
+.redesign-slot h3{font-size:16px;font-weight:700;color:#e91e8c}
+.redesign-slot p{font-size:13px;color:#94a3b8;line-height:1.6;max-width:200px}
+.redesign-slot .waiting{display:inline-flex;align-items:center;gap:8px;
+  margin-top:4px;background:#fdf2f8;border:1px solid #fbb6ce;
+  padding:7px 16px;border-radius:999px;font-size:11px;font-weight:700;color:#e91e8c}
 
-.placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
-  background:#f8fafc;border:2px dashed #cbd5e1;border-radius:12px;
-  padding:60px 24px;margin:0;color:#94a3b8;text-align:center}
-.placeholder .icon{font-size:40px;opacity:.4}
-.placeholder p{font-size:13px;font-weight:600;color:#94a3b8}
-.placeholder span{font-size:11px;color:#cbd5e1}
-
-.summary{max-width:1052px;margin:16px auto 0;padding:0 24px 40px}
-.sum-box{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e91e8c;border-radius:12px;padding:18px 22px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
-.sum-box h3{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:12px}
-.sum-row{display:flex;gap:10px;font-size:13px;color:#475569;margin-bottom:8px;align-items:flex-start;line-height:1.5}
+/* ── summary ── */
+.summary{max-width:1052px;margin:24px auto 0;padding:0 24px 48px}
+.sum-box{background:rgba(255,255,255,.92);border:1px solid #e2e8f0;
+  border-left:4px solid #e91e8c;border-radius:14px;padding:20px 24px;
+  box-shadow:0 4px 20px rgba(0,0,0,.06);backdrop-filter:blur(4px)}
+.sum-box h3{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:14px}
+.sum-row{display:flex;gap:12px;font-size:13px;color:#475569;margin-bottom:10px;
+  align-items:flex-start;line-height:1.6}
 .g{color:#16a34a;font-weight:700}
-.code{font-family:monospace;font-size:11px;background:#f1f5f9;padding:1px 6px;border-radius:4px;color:#475569}
+.code{font-family:monospace;font-size:11px;background:#f1f5f9;
+  padding:1px 6px;border-radius:4px;color:#475569}
 
-footer{text-align:center;padding:24px;font-size:11px;color:#94a3b8}
+footer{text-align:center;padding:28px;font-size:11px;color:#94a3b8}
 footer strong{color:#e91e8c}
 </style>
 </head>
@@ -65,49 +86,36 @@ footer strong{color:#e91e8c}
 
 <div class="header">
   <div class="badge">&#128172; Chat Feature</div>
-  <h1>Chat &#8212; Before &amp; After</h1>
-  <p>Play Store (live) vs Dev Build &middot; Male Caller View &middot; Samsung Android 14</p>
-  <div class="stats">
-    <div class="stat"><div class="stat-num">&#9989;</div><div class="stat-label">Before — Current</div></div>
-    <div class="stat"><div class="stat-num">&rarr;</div><div class="stat-label"></div></div>
-    <div class="stat"><div class="stat-num">&#128338;</div><div class="stat-label">After — Coming Soon</div></div>
-  </div>
-</div>
-
-<div class="legend">
-  <div class="legend-item"><div class="dot dot-before"></div> Current</div>
-  <div class="legend-item"><div class="dot dot-after"></div> After Redesign</div>
+  <h1>Chat Screen &#8212; Before &amp; After</h1>
+  <p>Current build vs Redesign &middot; Male Caller View &middot; Samsung Android 14</p>
 </div>
 
 <a class="back" href="index.html">&larr; Back to Overview</a>
 
-<div class="sec">&#128172; Chat &#8212; Male Caller View (6382088746)</div>
+<div class="sec">&#128172; Chat &#8212; Male Caller (6382088746)</div>
 
 <div class="cols">
 
-  <!-- BEFORE -->
+  <!-- CURRENT / BEFORE -->
   <div>
-    <div class="col-head col-before">BEFORE &#8212; Current</div>
-
-    <div class="card">
-      <div class="card-title"><span>&#128172; Chat Screen</span><span class="badge-live">Live</span></div>
-      <div class="phone-img">
-        <img src="chat_after_rs.png" alt="Chat &#8212; Current">
+    <div class="col-label col-current">&#9679;&nbsp; Current</div>
+    <div class="phone-card">
+      <div class="bar">
+        <span class="bar-title">&#128172; Chat Screen</span>
+        <span class="badge-live">Current</span>
       </div>
+      <img src="chat_after_rs.png" alt="Chat &#8212; Current Build">
     </div>
   </div>
 
-  <!-- AFTER -->
+  <!-- REDESIGN / AFTER -->
   <div>
-    <div class="col-head col-after">AFTER &#8212; Redesign Coming</div>
-
-    <div class="card">
-      <div class="card-title"><span>&#128172; Chat Screen</span><span class="badge-new">TBD</span></div>
-      <div class="placeholder">
-        <div class="icon">&#128172;</div>
-        <p>After redesign</p>
-        <span>Will be added soon</span>
-      </div>
+    <div class="col-label col-redesign">&#10022;&nbsp; Redesign</div>
+    <div class="redesign-slot">
+      <div class="big-icon">&#128172;</div>
+      <h3>Redesign Coming</h3>
+      <p>New chat UI will appear here once the redesign is ready</p>
+      <span class="waiting">&#9201; Waiting for design</span>
     </div>
   </div>
 
@@ -115,15 +123,15 @@ footer strong{color:#e91e8c}
 
 <div class="summary">
   <div class="sum-box">
-    <h3>Change Summary &#8212; Chat Feature</h3>
-    <div class="sum-row"><span>&#128172;</span><span><span class="g">New chat feature in Dev Build.</span> Male callers can open a direct chat window with female creators. Shows creator name, avatar, audio &amp; video call shortcuts, and coin rate.</span></div>
-    <div class="sum-row"><span>&#128105;</span><span>Female creators see incoming chats via the <strong>Chat tab</strong> (female-only tab in bottom nav). Males access chat through the creator list on Home.</span></div>
-    <div class="sum-row"><span>&#128241;</span><span>Play Store: <span class="code">com.gmwapp.hima</span> &nbsp;|&nbsp; Dev Build: <span class="code">com.gmwapp.hima.dev</span> &nbsp;|&nbsp; Account: 6382088746 &middot; Samsung Android 14</span></div>
+    <h3>Chat Feature &#8212; Summary</h3>
+    <div class="sum-row"><span>&#128172;</span><span><span class="g">New chat feature in Dev Build.</span> Male callers open a direct chat with female creators &#8212; shows avatar, name, audio/video shortcuts, and coin rate per minute.</span></div>
+    <div class="sum-row"><span>&#128105;</span><span>Female creators receive incoming chats in their dedicated <strong>Chat tab</strong> (female-only bottom nav tab). Males access chat by tapping a creator card on the Home screen.</span></div>
+    <div class="sum-row"><span>&#128241;</span><span>Dev Build: <span class="code">com.gmwapp.hima.dev</span> &nbsp;|&nbsp; Account: 6382088746 &middot; Samsung Android 14</span></div>
   </div>
 </div>
 
 <footer>
-  <p>HI ma &nbsp;&bull;&nbsp; <strong>UI Redesign 2026</strong> &nbsp;&bull;&nbsp; Chat Feature Comparison</p>
+  <p>HI ma &nbsp;&bull;&nbsp; <strong>UI Redesign 2026</strong> &nbsp;&bull;&nbsp; Chat Screen Comparison</p>
 </footer>
 
 </body>
